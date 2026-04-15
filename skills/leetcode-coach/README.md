@@ -1,40 +1,43 @@
-# leetcode-coach
+# 力扣教练
 
-`leetcode-coach` is a Chinese-first interview-prep coaching skill for LeetCode and algorithm drills. It keeps the original "teach first, code later" stage gate, but now also supports a lightweight persistent pattern tracker and clearer concept explanations for learners who get stuck on fundamentals.
+`leetcode-coach` 是一个面向国内力扣与算法面试训练的中文教练型技能。它保留了原来的“先教思路，后给代码”分阶段训练方式，并把“题目全文展示、关键词白话解释、切换算法类型前必须得到用户确认、确认后再更新记录”都提升为硬规则。
 
-Chinese version: [README.zh-CN.md](README.zh-CN.md)
+[中文说明](README.zh-CN.md)
 
-## Files
+## 文件说明
 
-| File | Purpose |
+| 文件 | 作用 |
 | :--- | :--- |
-| `SKILL.md` | Main coaching rules, stage flow, concept rescue mode, and progress-tracking instructions |
-| `references/pattern-ladder.md` | Recommended pattern progression for choosing the next drill |
-| `references/pattern-progress.md` | Global pattern-level study record, one row per algorithm type |
-| `references/training-log-template.md` | Optional session recap template |
-| `playground.js` | Local scratch playground for experiments |
+| `SKILL.md` | 技能的核心规则、训练阶段流程、概念救援模式、进度记录要求 |
+| `references/pattern-ladder.md` | 推荐的算法模式进阶顺序，用来决定下一题练什么 |
+| `references/pattern-progress.md` | 全局算法类型学习记录，每种模式一条 |
+| `references/training-log-template.md` | 可选的单次训练总结模板 |
+| `playground.js` | 本地临时实验用的练习文件 |
 
-## Expected workflow
+## 推荐使用流程
 
-1. Before opening a new drill, read `references/pattern-progress.md`.
-2. Pick the next problem based on the learner's weak pattern instead of repeating comfort-zone questions.
-3. If the learner is blocked by a concept, explain it in plain Chinese with a small analogy and tiny example before pushing for code.
-4. Keep validation light: once the learner's direction is clearly right, confirm the key point and move on.
-5. After the learner finishes or meaningfully practices a pattern, update the corresponding row in `references/pattern-progress.md`.
+1. 开始新一轮训练前，先看 `references/pattern-progress.md`。
+2. 默认从国内力扣（`leetcode.cn`）选题，并把题目完整给出，不要只做摘要式转述。
+3. 在推动学习者作答前，先把题目里的重要关键词用白话解释清楚。
+4. 如果学习者卡在某个概念上，先用白话解释、生活类比和最小例子讲清楚，再继续推代码。
+5. 验证保持轻量，方向明显对了就确认关键点后继续推进。
+6. 当前算法类型没完成、没得到学习者明确确认前，不要切到下一个类型。
+7. 只有在得到确认后，才更新 `references/pattern-progress.md` 对应那一行。
 
-## Pattern progress file
+## 全局进度文件
 
-`references/pattern-progress.md` is intentionally simple:
+`references/pattern-progress.md` 刻意保持简单：
 
-- one row per algorithm type
-- compact updates instead of long session logs
-- enough information to decide "what should we practice next?"
+- 每种算法类型一行
+- 以汇总更新为主，不堆很长的单次日志
+- 信息只保留到足够支持“下一步练什么”为止
+- 只有在学习者明确确认当前类型阶段完成后才更新
 
-Recommended fields:
+建议维护这些字段：
 
-- `Status`
-- `Last practiced`
-- `Weak point`
-- `Next suggested problem`
+- `状态`
+- `最近练习`
+- `薄弱点`
+- `下一题建议`
 
-Use `references/training-log-template.md` only when a detailed per-session summary is actually useful.
+只有在确实需要一份单次训练总结时，再使用 `references/training-log-template.md`。

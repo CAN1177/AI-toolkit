@@ -1,36 +1,36 @@
-# Pattern Ladder
+# 模式进阶表
 
-Use this progression when the learner does not provide a custom roadmap. Stay on a pattern for 2-3 problems, then move on.
+当学习者没有给出自定义路线时，就使用这份进阶顺序。每个模式先连续练 2-3 题，再考虑往后走。
 
-| Stage | Pattern | Typical question shapes | Core mental move | Move on when the learner can... |
+| 阶段 | 模式 | 常见题型 | 核心思维动作 | 满足什么条件后再往后走 |
 | :--- | :--- | :--- | :--- | :--- |
-| 1 | Hash map / counting | Two Sum, contains duplicate, anagram | Trade space for fast lookup | spot "I need to know whether X already appeared" quickly |
-| 2 | Two pointers | sorted pair, remove duplicates, palindrome | Shrink search space from both ends | explain pointer movement instead of brute force |
-| 3 | Sliding window | longest substring, fixed-size window, frequency window | Maintain a valid range while moving once | say what the window invariant is |
-| 4 | Binary search | search range, answer search, boundary search | Cut search space by monotonicity | distinguish "search value" vs "search answer" |
-| 5 | Stack / monotonic stack | valid parentheses, next greater element, histogram | Defer work until a structural condition breaks | explain what stays monotonic and why |
-| 6 | Linked list | reverse list, cycle, merge lists | Track pointers, not indexes | reason about pointer rewiring without hand-waving |
-| 7 | Tree DFS / BFS | traversals, level order, path checks | Use recursive structure or queue order | choose DFS vs BFS for a stated reason |
-| 8 | Backtracking | subsets, permutations, combination sum | Build path, recurse, undo choice | name decision tree, path, and pruning point |
-| 9 | Heap / priority queue | top K, merge streams, scheduling | Keep only the most valuable candidates | justify min-heap vs max-heap |
-| 10 | Graph traversal | islands, course schedule, shortest reach | Model state transitions explicitly | identify nodes, edges, and visited policy |
-| 11 | Interval problems | merge intervals, meeting rooms | Sort first, then reason about overlap | state the merge condition clearly |
-| 12 | Dynamic programming | stairs, knapsack, subsequence, partition | Define state and transition before coding | say state, choice, base case, transition without guessing |
+| 1 | 哈希表 / 计数 | 两数之和、存在重复元素、有效的字母异位词 | 用空间换快速查询 | 能快速识别“我需要知道某个东西是否已经出现过” |
+| 2 | 双指针 | 有序数组找和、删除重复项、回文串 | 从两端同时缩小搜索空间 | 能解释指针为什么这样移动，而不是只会暴力枚举 |
+| 3 | 滑动窗口 | 最长子串、定长窗口、词频窗口 | 在一次移动中维持一个合法区间 | 能说清窗口不变量是什么 |
+| 4 | 二分查找 | 查找范围、查找答案、边界查找 | 利用单调性不断砍搜索空间 | 能区分“查值”和“查答案” |
+| 5 | 栈 / 单调栈 | 有效的括号、下一个更大元素、柱状图 | 先压住工作，等结构条件破坏时再处理 | 能说清什么东西保持单调、为什么要保持单调 |
+| 6 | 链表 | 反转链表、环形链表、合并链表 | 盯指针，不盯下标 | 能不含糊地讲清指针重连过程 |
+| 7 | 树的深搜 / 广搜 | 遍历、层序遍历、路径判断 | 利用递归结构或队列顺序 | 能根据题意说出为什么选深搜或广搜 |
+| 8 | 回溯 | 子集、全排列、组合总和 | 构造路径、递归展开、撤销选择 | 能说清决策树、路径和剪枝点 |
+| 9 | 堆 / 优先队列 | 前 K 个、合并数据流、调度 | 始终保留最有价值的一批候选 | 能解释为什么用小根堆或大根堆 |
+| 10 | 图遍历 | 岛屿数量、课程表、最短可达性 | 显式建模状态转移 | 能识别节点、边以及访问标记策略 |
+| 11 | 区间问题 | 合并区间、会议室 | 先排序，再判断重叠关系 | 能清楚说出区间合并条件 |
+| 12 | 动态规划 | 爬楼梯、背包、子序列、划分问题 | 写代码前先定义状态和转移 | 能不靠猜测地说清状态、选择、初始条件和转移 |
 
-## Selection Heuristics
+## 选题启发
 
-- If the learner says "95% of LeetCode feels impossible", start with **hash map**, **two pointers**, or **sliding window**.
-- If the learner keeps writing correct brute force first, stay on the same pattern until they can reach the optimized pattern themselves.
-- If the learner memorizes templates but cannot explain invariants, do not advance yet.
-- If the learner solves the code but cannot name the transfer cue, end the session with a pattern summary before moving on.
+- 如果学习者说“95% 的力扣题都不会”，就从**哈希表**、**双指针**、**滑动窗口**开始。
+- 如果学习者总是先写出正确暴力解，就继续留在同一模式，直到他能自己走到优化模式。
+- 如果学习者只会背模板，却解释不清不变量，就先不要往后推进。
+- 如果学习者虽然写对了代码，却说不出迁移信号，就先做模式总结，再考虑往后走。
 
-## Suggested Next-Step Pairs
+## 推荐的下一步配对
 
-| After this pattern | Good next pattern |
+| 当前模式之后 | 比较合适的下一个模式 |
 | :--- | :--- |
-| Hash map | Two pointers |
-| Two pointers | Sliding window |
-| Sliding window | Binary search or stack |
-| Tree DFS / BFS | Backtracking or graph traversal |
-| Interval | Heap |
-| Binary search | Dynamic programming only after monotonic thinking is stable |
+| 哈希表 | 双指针 |
+| 双指针 | 滑动窗口 |
+| 滑动窗口 | 二分查找 或 栈 |
+| 树的深搜 / 广搜 | 回溯 或 图遍历 |
+| 区间问题 | 堆 |
+| 二分查找 | 只有在单调性思维稳定后，再接动态规划 |

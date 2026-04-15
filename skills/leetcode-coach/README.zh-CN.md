@@ -1,26 +1,28 @@
-# leetcode-coach
+# 力扣教练
 
-`leetcode-coach` 是一个面向 LeetCode 与算法面试训练的中文教练型 skill。它保留了原来的“先教思路，后给代码”分阶段训练方式，同时补充了轻量的全局模式进度记录，以及在用户卡概念时更通俗易懂的解释方式。
+`leetcode-coach` 是一个面向国内力扣（`leetcode.cn`）与算法面试训练的中文教练型技能。它保留了原来的“先教思路，后给代码”分阶段训练方式，并把“题目全文展示、关键词白话解释、切换算法类型前必须得到用户确认、确认后再更新记录”都提升为硬规则。
 
-English version: [README.md](README.md)
+[说明文档](README.md)
 
 ## 文件说明
 
 | 文件 | 作用 |
 | :--- | :--- |
-| `SKILL.md` | skill 的核心规则、训练阶段流程、概念救援模式、进度记录要求 |
+| `SKILL.md` | 技能的核心规则、训练阶段流程、概念救援模式、进度记录要求 |
 | `references/pattern-ladder.md` | 推荐的算法模式进阶顺序，用来决定下一题练什么 |
 | `references/pattern-progress.md` | 全局算法类型学习记录，每种模式一条 |
 | `references/training-log-template.md` | 可选的单次训练总结模板 |
-| `playground.js` | 本地练习或临时实验用的 playground |
+| `playground.js` | 本地练习或临时实验用的练习文件 |
 
 ## 推荐使用流程
 
 1. 开始新一轮训练前，先看 `references/pattern-progress.md`。
-2. 优先根据当前薄弱模式选题，而不是重复舒适区里的题。
-3. 如果用户卡在某个概念上，先用白话解释、生活类比和最小例子讲清楚，再继续推代码。
-4. 验证环节保持轻量，方向已经对了就确认关键点后继续推进。
-5. 当用户完成或有效练习了一个算法类型后，更新 `references/pattern-progress.md` 对应那一行。
+2. 默认从国内力扣（`leetcode.cn`）选题，并把题目完整给出，不要只做缩写式转述。
+3. 进入解题前，先把题目里的关键术语用白话解释清楚。
+4. 如果用户卡在某个概念上，先用白话解释、生活类比和最小例子讲清楚，再继续推代码。
+5. 验证环节保持轻量，方向已经对了就确认关键点后继续推进。
+6. 当前算法类型没讲透、没练完、没得到用户明确确认前，不要切到下一个类型。
+7. 只有在用户明确确认当前类型可以收口之后，才更新 `references/pattern-progress.md` 对应那一行。
 
 ## 全局进度文件
 
@@ -29,12 +31,13 @@ English version: [README.md](README.md)
 - 每种算法类型一行
 - 以汇总更新为主，不堆很长的单次日志
 - 信息只保留到足够支持“下一步练什么”为止
+- 只有在用户明确确认当前类型阶段完成后才更新
 
 建议维护这些字段：
 
-- `Status`
-- `Last practiced`
-- `Weak point`
-- `Next suggested problem`
+- `状态`
+- `最近练习`
+- `薄弱点`
+- `下一题建议`
 
 如果只需要一次训练的小结，再使用 `references/training-log-template.md`。

@@ -1,37 +1,37 @@
-# Pattern Progress
+# 模式进度表
 
-Use this as the global pattern-level study ledger for `leetcode-coach`.
+把它当作 `leetcode-coach` 的全局模式级学习台账。
 
-Update one row when the learner has finished or meaningfully practiced a pattern. Keep it compact: outcome, weak point, latest date, and next step are enough.
+只有在学习者明确确认当前模式 / 类型阶段已经完成、可以记档之后，才更新对应那一行。保持简洁即可：结果、薄弱点、最近日期、下一步，够用就行。
 
-| Pattern | Status | Last practiced | Weak point | Next suggested problem |
+| 模式 | 状态 | 最近练习 | 薄弱点 | 下一题建议 |
 | :--- | :--- | :--- | :--- | :--- |
-| Hash map / counting | not-started | - | - | Two Sum |
-| Two pointers | not-started | - | - | Valid Palindrome |
-| Sliding window | not-started | - | - | Longest Substring Without Repeating Characters |
-| Binary search | not-started | - | - | Binary Search |
-| Stack / monotonic stack | not-started | - | - | Valid Parentheses |
-| Linked list | not-started | - | - | Reverse Linked List |
-| Tree DFS / BFS | not-started | - | - | Binary Tree Level Order Traversal |
-| Backtracking | not-started | - | - | Subsets |
-| Heap / priority queue | not-started | - | - | Kth Largest Element in an Array |
-| Graph traversal | not-started | - | - | Number of Islands |
-| Interval problems | not-started | - | - | Merge Intervals |
-| Dynamic programming | not-started | - | - | Climbing Stairs |
+| 哈希表 / 计数 | 未开始 | - | - | 两数之和 |
+| 双指针 | 未开始 | - | - | 验证回文串 |
+| 滑动窗口 | 未开始 | - | - | 无重复字符的最长子串 |
+| 二分查找 | 未开始 | - | - | 二分查找 |
+| 栈 / 单调栈 | 未开始 | - | - | 有效的括号 |
+| 链表 | 未开始 | - | - | 反转链表 |
+| 树的深搜 / 广搜 | 未开始 | - | - | 二叉树的层序遍历 |
+| 回溯 | 未开始 | - | - | 子集 |
+| 堆 / 优先队列 | 未开始 | - | - | 数组中的第 K 个最大元素 |
+| 图遍历 | 未开始 | - | - | 岛屿数量 |
+| 区间问题 | 未开始 | - | - | 合并区间 |
+| 动态规划 | 未开始 | - | - | 爬楼梯 |
 
-## Status suggestion
+## 状态建议
 
-- `not-started`
-- `learning`
-- `needs-review`
-- `solid`
+- `未开始`
+- `学习中`
+- `待复习`
+- `已稳固`
 
-## Update example
+## 更新示例
 
 ```text
-Pattern: Sliding window
-Status: learning
-Last practiced: 2026-04-13
-Weak point: window invariant still unstable when shrinking
-Next suggested problem: Minimum Size Subarray Sum
+模式：滑动窗口
+状态：学习中
+最近练习：2026-04-13
+薄弱点：窗口收缩时，不变量还不稳定
+下一题建议：长度最小的子数组
 ```

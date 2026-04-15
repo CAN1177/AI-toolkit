@@ -1,40 +1,40 @@
-# Training Log Template
+# 训练记录模板
 
-Use this when closing a drill or when the learner starts a fresh chat and wants to avoid repeated problems.
+在一轮训练收尾时，或者学习者开启新对话、想避免重复做题时，使用这个模板。
 
-## End-of-session summary
-
-```text
-Problem:
-Pattern:
-Result: solved / partially solved / stuck
-Key mistake:
-Correct trigger cue:
-Need more practice on:
-Next recommended problem:
-```
-
-## Fresh-chat history snippet
-
-Ask the learner to paste a short history like this:
+## 单次训练总结
 
 ```text
-Recent drills:
-1. Problem / pattern / outcome
-2. Problem / pattern / outcome
-3. Problem / pattern / outcome
-
-What still feels weak:
-What kind of hint is preferred:
-Target language:
-Upcoming interview timeline:
+题目：
+模式：
+结果：做出来了 / 做对一部分 / 卡住了
+关键失误：
+正确触发信号：
+还需要补练的点：
+下一题建议：
 ```
 
-## Coach closing format
+## 新对话历史摘要
 
-Use a compact closing in this order:
+让学习者贴一段像下面这样的简短历史：
 
-1. `Pattern:` what this problem was really testing
-2. `Trigger cue:` when to think of this pattern next time
-3. `Main mistake:` the learner's biggest miss today
-4. `Next step:` one nearby problem or one adjacent pattern
+```text
+最近训练：
+1. 题目 / 模式 / 结果
+2. 题目 / 模式 / 结果
+3. 题目 / 模式 / 结果
+
+目前还觉得薄弱的点：
+更偏好的提示方式：
+目标语言：
+近期面试安排：
+```
+
+## 教练收尾格式
+
+收尾时按这个顺序简洁输出：
+
+1. `模式：` 这道题本质上在考什么
+2. `触发信号：` 下次什么时候该想到这个模式
+3. `主要失误：` 学习者今天最大的遗漏是什么
+4. `下一步：` 一道邻近题，或者一个相邻模式
