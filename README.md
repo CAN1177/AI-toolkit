@@ -6,6 +6,7 @@
 
 ```
 ai-toolkit/
+├── docs/     # 文档与设计说明
 ├── prompts/  # 提示词工程
 ├── skills/   # Agent Skills 技能模块
 └── mcp/      # MCP 工具与服务
@@ -22,6 +23,12 @@ ai-toolkit/
 兼容 [Agent Skills](https://agentskills.io) 开放标准的可复用技能模块，支持 Cursor、Claude Code、Windsurf 等 AI 编码助手。
 
 详细说明见 [skills/README.md](skills/README.md)。
+
+### 📚 docs — 文档与流程说明
+
+补充设计说明、执行流程和落地约定。
+
+其中 leetcode 做题记录远程同步流程见 [docs/leetcode-record-sync.md](docs/leetcode-record-sync.md)。
 
 ### 🔌 mcp — MCP 工具
 

@@ -46,11 +46,23 @@ $LEETCODE_COACH_RECORDS_REPO_PATH/
 
 ## 行为约定
 
-1. 每次开始使用 `leetcode-coach` 前，先对外部记录仓库执行 `git pull`，确保读取的是最新记录。
+1. 每次开始使用 `leetcode-coach` 前，先执行 `node skills/leetcode-coach/records-sync.js pull`，确保读取的是最新记录。
 2. 训练过程中读取的模式进度、历史训练记录，都应来自外部记录仓库中的文件，而不是当前仓库里的模板。
 3. 产生新的训练记录或更新模式进度时，写入目标也必须是外部记录仓库中的对应文件。
 4. 只在学习者明确确认“这次进度可以记档”后，才更新外部记录仓库中的 `pattern-progress.md`。
-5. 本地记录一旦更新，应立即完成 `git add`、`git commit`、`git push`，不要把未推送的变更长期留在本地。
+5. 本地记录一旦更新，应立即执行 `node skills/leetcode-coach/records-sync.js push`，自动完成 `git add`、`git commit`、`git push`，不要把未推送的变更长期留在本地。
+
+## 自动同步脚本
+
+当前仓库提供：
+
+```bash
+node skills/leetcode-coach/records-sync.js pull
+node skills/leetcode-coach/records-sync.js push --message "docs: sync leetcode practice progress"
+```
+
+- `pull`：校验环境变量、仓库根目录、记录目录和必需文件，然后执行远端拉取。
+- `push`：把记录目录变更自动加入暂存区、生成提交并推送到远端。
 
 ## 当前仓库中文件的角色
 
