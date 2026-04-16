@@ -2,13 +2,13 @@
 
 ## 目标
 
-为 `leetcode-coach` 额外准备一个独立的 git 仓库，用来保存个人做题步骤、模式进度和训练日志。
+为 `leetcode-coach` 额外准备一个独立的**私有** git 仓库，用来保存个人做题步骤、模式进度和训练日志。
 
 这个独立仓库是**真实记录源**：
 
 - 当前仓库里的 `skills/leetcode-coach/references/` 只保留模板；
 - 个人做题记录统一写到外部记录仓库；
-- 每次做题前先同步远端最新内容；
+- 每次开始一个新类型前先同步远端最新内容；
 - 每次完成一个类型后，立刻把更新同步到远端。
 
 ## 推荐目录结构
@@ -25,7 +25,7 @@ your-records-repo/
 
 ## 初始化步骤
 
-1. 新建一个自己的远程仓库，专门用于保存做题记录。
+1. 新建一个自己的私有远程仓库，专门用于保存做题记录。
 2. clone 到本地，例如：
 
    ```bash
@@ -46,19 +46,33 @@ your-records-repo/
 5. 配置环境变量：
 
    ```bash
-   export LEETCODE_COACH_RECORDS_REPO_PATH=~/code/leetcode-records
-   export LEETCODE_COACH_RECORDS_SUBDIR=leetcode-coach
+   # 写到 ~/.zshrc 或 ~/.bashrc
+   export LEETCODE_COACH_RECORDS_REPO_PATH="$HOME/code/leetcode-records"
+   export LEETCODE_COACH_RECORDS_SUBDIR="leetcode-coach"
    ```
+
+   这里的 `LEETCODE_COACH_RECORDS_REPO_PATH` 指的是：**你本机上这个私有记录仓库的绝对路径**。  
+   比如你把仓库 clone 到 `/Users/ke/code/leetcode-records`，那它就应该指向这个目录。
+
+6. 重新加载配置并验证：
+
+   ```bash
+   source ~/.zshrc
+   # 或 source ~/.bashrc
+   echo $LEETCODE_COACH_RECORDS_REPO_PATH
+   ```
+
+   如果输出的是本地仓库路径，说明配置成功。
 
 ## 同步时机
 
-### 每次做题前
+### 每次开始新类型前
 
 固定执行下面的顺序：
 
 1. 进入外部记录仓库；
 2. 拉取远端最新记录；
-3. 再开始本次做题。
+3. 再开始本次类型训练。
 
 推荐直接执行自动脚本：
 
@@ -72,7 +86,7 @@ node skills/leetcode-coach/records-sync.js pull
 
 固定执行下面的顺序：
 
-1. 更新 `pattern-progress.md`；
+1. 在学习者明确确认当前类型可以记档后，更新 `pattern-progress.md`；
 2. 如有需要，在 `training-logs/` 下新增或补充本次训练日志；
 3. 提交本地变更；
 4. 推送到远端。
@@ -107,7 +121,7 @@ node skills/leetcode-coach/records-sync.js push --message "docs: sync leetcode p
 ## 执行约束
 
 1. 不要把 skill 仓库中的模板文件直接当成长期个人记录使用。
-2. 做题前必须先 pull。
+2. 开始新类型前必须先 pull。
 3. 完成一个类型后必须立即 commit + push。
 4. 缺少外部记录仓库、目录或文件时，先补齐配置，再继续训练。
 

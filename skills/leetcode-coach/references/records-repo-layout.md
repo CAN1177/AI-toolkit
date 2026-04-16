@@ -1,6 +1,6 @@
 # 外部记录仓库布局说明
 
-`leetcode-coach` 的个人训练记录不再以当前仓库中的 `references/` 文件作为真实数据源，而是放在一个由学习者自己维护的、可同步到远端的外部 git 仓库中。
+`leetcode-coach` 是一个公共 skill，因此个人训练记录不应存放在当前仓库里，而应放在一个由学习者自己维护的、可同步到远端的**私有 git 仓库**中。
 
 这个文件只定义约定；真正被读取和更新的是外部记录仓库里的副本。
 
@@ -8,8 +8,14 @@
 
 ### 必填：`LEETCODE_COACH_RECORDS_REPO_PATH`
 
-- 含义：外部记录仓库在本地的绝对路径。
+- 含义：外部记录仓库在**用户自己电脑上**的本地绝对路径。
+- 这不是远程仓库 URL，也不是当前 skill 仓库路径；它应该指向你 clone 下来的那个私有记录仓库根目录。
+- 推荐写法：使用 `$HOME`，例如 `export LEETCODE_COACH_RECORDS_REPO_PATH="$HOME/code/leetcode-records"`。
+- 配置位置：通常写进 `~/.zshrc` 或 `~/.bashrc`。
+- 生效方式：保存后执行 `source ~/.zshrc` 或 `source ~/.bashrc`。
+- 验证方式：运行 `echo $LEETCODE_COACH_RECORDS_REPO_PATH`，确认输出的是正确的本地目录。
 - 要求：路径必须存在，而且必须是一个 git 仓库。
+- 建议：该仓库使用私有托管，避免把个人做题记录暴露在公共仓库中。
 
 ### 选填：`LEETCODE_COACH_RECORDS_SUBDIR`
 
@@ -46,10 +52,10 @@ $LEETCODE_COACH_RECORDS_REPO_PATH/
 
 ## 行为约定
 
-1. 每次开始使用 `leetcode-coach` 前，先执行 `node skills/leetcode-coach/records-sync.js pull`，确保读取的是最新记录。
+1. 每次开始一个新类型前，先执行 `node skills/leetcode-coach/records-sync.js pull`，确保读取的是最新记录。
 2. 训练过程中读取的模式进度、历史训练记录，都应来自外部记录仓库中的文件，而不是当前仓库里的模板。
 3. 产生新的训练记录或更新模式进度时，写入目标也必须是外部记录仓库中的对应文件。
-4. 只在学习者明确确认“这次进度可以记档”后，才更新外部记录仓库中的 `pattern-progress.md`。
+4. 只在学习者明确确认“当前这个类型可以记档”后，才更新外部记录仓库中的 `pattern-progress.md`。
 5. 本地记录一旦更新，应立即执行 `node skills/leetcode-coach/records-sync.js push`，自动完成 `git add`、`git commit`、`git push`，不要把未推送的变更长期留在本地。
 
 ## 自动同步脚本
