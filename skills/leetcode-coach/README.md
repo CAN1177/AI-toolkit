@@ -59,7 +59,14 @@
    应该输出你的本地仓库完整路径，例如 `/Users/ke/code/leetcode-records`。
 
 7. 如果记录不放在默认 `leetcode-coach/` 子目录，再把 `LEETCODE_COACH_RECORDS_SUBDIR` 改成你自己的相对子目录。
-8. 按 `references/records-repo-layout.md` 的说明，把 `pattern-progress.md`、`training-log-template.md` 和 `training-logs/` 初始化到外部记录目录里。
+8. 首次接入一个空私有仓库时，直接执行：
+
+   ```bash
+   node skills/leetcode-coach/records-sync.js pull
+   ```
+
+   这会自动把 `pattern-progress.md`、`training-log-template.md` 和 `training-logs/` 初始化到外部记录目录里；其中 `training-logs/` 会带一个占位文件，确保目录能随 git 一起同步。
+9. 如果仓库不是空的，但记录目录或必需文件缺失，脚本会明确报错；这种情况需要先修复仓库结构，而不是静默补齐。
 
 ## 自动同步命令
 
@@ -68,7 +75,7 @@ node skills/leetcode-coach/records-sync.js pull
 node skills/leetcode-coach/records-sync.js push --message "docs: sync leetcode practice progress"
 ```
 
-- `pull`：在开始训练前自动检查配置、校验目录并执行远端拉取。
+- `pull`：在开始训练前自动检查配置；如果私有仓库是空仓，会先初始化模板和目录，然后再执行远端拉取检查。
 - `push`：在完成一个类型并更新记录后，自动执行 `git add`、`git commit`、`git push`。
 - 如果不传 `--message`，脚本会使用默认提交信息。
 
@@ -92,7 +99,8 @@ node skills/leetcode-coach/records-sync.js push --message "docs: sync leetcode p
 
 - `pull` 失败：停止继续训练，先修复同步问题
 - `push` 失败：明确说明“本地记录已更新，但远端未同步成功”
-- 缺配置、缺目录、缺模板文件：提示用户先补齐，不要回退到当前仓库模板
+- 空仓首次接入：允许 `pull` 自动初始化模板和目录
+- 缺配置、非空仓缺目录、非空仓缺模板文件：提示用户先补齐，不要回退到当前仓库模板
 
 ## 模板文件角色
 

@@ -39,16 +39,23 @@ $LEETCODE_COACH_RECORDS_REPO_PATH/
 
 ## 初始化方式
 
-如果学习者新建了一个全新的外部记录仓库，需要先自己完成初始化：把当前仓库 `skills/leetcode-coach/references/` 中的模板文件复制到外部记录仓库的 `leetcode-coach/` 目录（如果设置了 `LEETCODE_COACH_RECORDS_SUBDIR`，则复制到对应子目录）。
+如果学习者 clone 下来的是一个空私有仓库，不需要自己手动复制模板文件。
 
-最低限度应复制：
+只要配置好 `LEETCODE_COACH_RECORDS_REPO_PATH`，然后执行：
 
-- `skills/leetcode-coach/references/pattern-progress.md` → `$LEETCODE_COACH_RECORDS_REPO_PATH/${LEETCODE_COACH_RECORDS_SUBDIR:-leetcode-coach}/pattern-progress.md`
-- `skills/leetcode-coach/references/training-log-template.md` → `$LEETCODE_COACH_RECORDS_REPO_PATH/${LEETCODE_COACH_RECORDS_SUBDIR:-leetcode-coach}/training-log-template.md`
+```bash
+node skills/leetcode-coach/records-sync.js pull
+```
 
-同时创建 `$LEETCODE_COACH_RECORDS_REPO_PATH/${LEETCODE_COACH_RECORDS_SUBDIR:-leetcode-coach}/training-logs/`，供后续按模板落地每次训练记录。
+脚本会自动在 `$LEETCODE_COACH_RECORDS_REPO_PATH/${LEETCODE_COACH_RECORDS_SUBDIR:-leetcode-coach}/` 下创建：
 
-完成这一步之后，再把外部记录仓库路径配置到 `LEETCODE_COACH_RECORDS_REPO_PATH`。
+- `pattern-progress.md`
+- `training-log-template.md`
+- `training-logs/`
+
+其中 `training-logs/` 会带一个占位文件，确保空目录也能被 git 正常同步。
+
+如果仓库不是空的，但这些内容缺失，则会明确报错，不会静默补齐。
 
 ## 行为约定
 
@@ -67,7 +74,7 @@ node skills/leetcode-coach/records-sync.js pull
 node skills/leetcode-coach/records-sync.js push --message "docs: sync leetcode practice progress"
 ```
 
-- `pull`：校验环境变量、仓库根目录、记录目录和必需文件，然后执行远端拉取。
+- `pull`：校验环境变量、仓库根目录；如果私有仓库是空仓，则先自动初始化记录目录和必需文件，再执行远端拉取检查。
 - `push`：把记录目录变更自动加入暂存区、生成提交并推送到远端。
 
 ## 当前仓库中文件的角色

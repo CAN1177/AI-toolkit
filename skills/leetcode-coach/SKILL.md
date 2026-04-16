@@ -42,10 +42,11 @@ description: 用于在 leetcode 教练场景中读取、更新并同步独立做
 
 1. `LEETCODE_COACH_RECORDS_REPO_PATH` 已配置，并且指向一个本地 git 仓库根目录
 2. `LEETCODE_COACH_RECORDS_SUBDIR` 未设置时默认使用 `leetcode-coach/`；设置后使用对应子目录
-3. 记录目录里至少存在 `pattern-progress.md`、`training-log-template.md` 和 `training-logs/`
-4. 必要时先用 `echo $LEETCODE_COACH_RECORDS_REPO_PATH` 确认环境变量已经在当前 shell 中生效
-5. 执行 `node skills/leetcode-coach/records-sync.js pull`
-6. 只有 `pull` 成功后，才读取外部记录仓库里的 `pattern-progress.md`
+3. 如果私有记录仓库是空仓，执行 `node skills/leetcode-coach/records-sync.js pull` 时会自动初始化 `pattern-progress.md`、`training-log-template.md` 和 `training-logs/`
+4. 如果仓库不是空的，但记录目录或必需文件缺失，必须明确报错并停止
+5. 必要时先用 `echo $LEETCODE_COACH_RECORDS_REPO_PATH` 确认环境变量已经在当前 shell 中生效
+6. 执行 `node skills/leetcode-coach/records-sync.js pull`
+7. 只有 `pull` 成功后，才读取外部记录仓库里的 `pattern-progress.md`
 
 如果启动检查失败，直接告诉学习者先修复仓库或配置，不要继续依赖本地旧记录。
 
@@ -64,7 +65,8 @@ description: 用于在 leetcode 教练场景中读取、更新并同步独立做
 | 场景 | 应该做什么 | 不要做什么 |
 | :--- | :--- | :--- |
 | 开始新类型 | 先 `pull`，再读远端记录决定下一步 | 直接按本地旧记录继续 |
-| 记录目录缺文件 | 明确提示补齐模板和目录 | 偷偷用当前仓库模板顶上 |
+| 空私有仓库首次接入 | 执行 `pull` 自动初始化模板和目录 | 手动回退到当前仓库模板记档 |
+| 非空仓缺文件 | 明确报错并停止 | 偷偷补齐后继续 |
 | 一个类型练完 | 先确认可以记档，再更新记录并 `push` | 没确认就改 `pattern-progress.md` |
 | `push` 失败 | 明确说明远端未同步成功 | 假装已经同步完成 |
 

@@ -32,27 +32,32 @@ your-records-repo/
    git clone <your-records-repo-url> ~/code/leetcode-records
    ```
 
-3. 在本地仓库中创建 `leetcode-coach/` 目录。
-4. 把当前仓库中的模板复制过去：
+3. 配置环境变量：
 
    ```bash
-   mkdir -p ~/code/leetcode-records/leetcode-coach/training-logs
-   cp skills/leetcode-coach/references/pattern-progress.md \
-     ~/code/leetcode-records/leetcode-coach/pattern-progress.md
-   cp skills/leetcode-coach/references/training-log-template.md \
-     ~/code/leetcode-records/leetcode-coach/training-log-template.md
+    # 写到 ~/.zshrc 或 ~/.bashrc
+    export LEETCODE_COACH_RECORDS_REPO_PATH="$HOME/code/leetcode-records"
+    export LEETCODE_COACH_RECORDS_SUBDIR="leetcode-coach"
    ```
 
-5. 配置环境变量：
-
-   ```bash
-   # 写到 ~/.zshrc 或 ~/.bashrc
-   export LEETCODE_COACH_RECORDS_REPO_PATH="$HOME/code/leetcode-records"
-   export LEETCODE_COACH_RECORDS_SUBDIR="leetcode-coach"
-   ```
-
-   这里的 `LEETCODE_COACH_RECORDS_REPO_PATH` 指的是：**你本机上这个私有记录仓库的绝对路径**。  
+   这里的 `LEETCODE_COACH_RECORDS_REPO_PATH` 指的是：**你本机上这个私有记录仓库的绝对路径**。
    比如你把仓库 clone 到 `/Users/ke/code/leetcode-records`，那它就应该指向这个目录。
+
+4. 如果这个私有仓库还是空仓，直接执行：
+
+   ```bash
+   node skills/leetcode-coach/records-sync.js pull
+   ```
+
+   这一步会自动创建 `leetcode-coach/`（或你自定义的子目录），并同步：
+
+   - `pattern-progress.md`
+   - `training-log-template.md`
+   - `training-logs/`
+
+   其中 `training-logs/` 会带一个占位文件，确保空目录也能跟着 git 一起同步。
+
+5. 如果仓库不是空的，但记录目录或上述文件缺失，脚本会明确报错；这种情况需要手动修复仓库结构，不会静默补齐。
 
 6. 重新加载配置并验证：
 
@@ -108,7 +113,7 @@ node skills/leetcode-coach/records-sync.js pull
 node skills/leetcode-coach/records-sync.js push --message "docs: sync leetcode practice progress"
 ```
 
-- `pull`：自动检查 `LEETCODE_COACH_RECORDS_REPO_PATH`、记录目录和必需文件，然后执行拉取。
+- `pull`：自动检查 `LEETCODE_COACH_RECORDS_REPO_PATH`；如果私有仓库是空仓，会先初始化记录目录和必需文件，然后再继续拉取检查。
 - `push`：自动把记录目录加入暂存区，提交并推送。
 - 不传 `--message` 时，会使用默认提交信息。
 
@@ -123,7 +128,8 @@ node skills/leetcode-coach/records-sync.js push --message "docs: sync leetcode p
 1. 不要把 skill 仓库中的模板文件直接当成长期个人记录使用。
 2. 开始新类型前必须先 pull。
 3. 完成一个类型后必须立即 commit + push。
-4. 缺少外部记录仓库、目录或文件时，先补齐配置，再继续训练。
+4. 空仓首次接入时，可以直接用 `pull` 自动初始化。
+5. 缺少外部记录仓库、非空仓缺目录或缺文件时，先补齐配置或修复仓库结构，再继续训练。
 
 ## 参考
 

@@ -6,10 +6,16 @@ const { execFileSync } = require("node:child_process");
 
 const DEFAULT_SUBDIR = "leetcode-coach";
 const DEFAULT_COMMIT_MESSAGE = "docs: sync leetcode practice progress";
+const TEMPLATE_ROOT = path.join(__dirname, "references");
 const REQUIRED_ENTRIES = [
   "pattern-progress.md",
   "training-log-template.md",
   "training-logs",
+];
+const TRAINING_LOGS_PLACEHOLDER = ".gitkeep";
+const REQUIRED_TEMPLATE_FILES = [
+  ["pattern-progress.md", "pattern-progress.md"],
+  ["training-log-template.md", "training-log-template.md"],
 ];
 
 function fail(message) {
@@ -62,7 +68,46 @@ function ensurePathExists(targetPath, description) {
   }
 }
 
-function loadContext() {
+function pathExists(targetPath) {
+  return fs.existsSync(targetPath);
+}
+
+function listRepoEntries(repoRoot) {
+  return fs.readdirSync(repoRoot).filter((entry) => entry !== ".git");
+}
+
+function hasVerifiedHead(repoRoot) {
+  try {
+    runGit(["rev-parse", "--verify", "HEAD"], repoRoot);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function isBootstrapCandidate(repoRoot, recordsDir) {
+  if (pathExists(recordsDir)) {
+    return false;
+  }
+
+  return listRepoEntries(repoRoot).length === 0;
+}
+
+function seedRecordsDirectory(recordsDir) {
+  fs.mkdirSync(recordsDir, { recursive: true });
+
+  for (const [sourceName, targetName] of REQUIRED_TEMPLATE_FILES) {
+    const sourcePath = path.join(TEMPLATE_ROOT, sourceName);
+    ensurePathExists(sourcePath, `模板文件 ${sourceName}`);
+    fs.copyFileSync(sourcePath, path.join(recordsDir, targetName));
+  }
+
+  const trainingLogsDir = path.join(recordsDir, "training-logs");
+  fs.mkdirSync(trainingLogsDir, { recursive: true });
+  fs.writeFileSync(path.join(trainingLogsDir, TRAINING_LOGS_PLACEHOLDER), "");
+}
+
+function loadContext(action) {
   const configuredRepoPath = process.env.LEETCODE_COACH_RECORDS_REPO_PATH;
   if (!configuredRepoPath) {
     fail("缺少环境变量 LEETCODE_COACH_RECORDS_REPO_PATH。");
@@ -80,6 +125,12 @@ function loadContext() {
 
   const recordsSubdir = process.env.LEETCODE_COACH_RECORDS_SUBDIR || DEFAULT_SUBDIR;
   const recordsDir = path.join(repoRoot, recordsSubdir);
+  const bootstrapped = action === "pull" && isBootstrapCandidate(repoRoot, recordsDir);
+
+  if (bootstrapped) {
+    seedRecordsDirectory(recordsDir);
+  }
+
   ensurePathExists(recordsDir, "记录目录");
 
   for (const entry of REQUIRED_ENTRIES) {
@@ -90,6 +141,8 @@ function loadContext() {
     repoRoot,
     recordsSubdir,
     recordsDir,
+    bootstrapped,
+    hasHead: hasVerifiedHead(repoRoot),
   };
 }
 
@@ -100,6 +153,18 @@ function printContext(context) {
 
 function pullRecords(context) {
   printContext(context);
+
+  if (context.bootstrapped) {
+    console.log("[leetcode-records-sync] 已检测到空记录仓库，已自动初始化模板文件。");
+  }
+
+  if (!context.hasHead) {
+    console.log(
+      "[leetcode-records-sync] 远端当前还没有可拉取的提交；初始化已完成，后续更新后执行 push 即可。",
+    );
+    return;
+  }
+
   const output = runGit(["pull", "--ff-only"], context.repoRoot);
   if (output) {
     console.log(output);
@@ -160,7 +225,7 @@ function main() {
     return;
   }
 
-  const context = loadContext();
+  const context = loadContext(action);
 
   if (action === "pull") {
     pullRecords(context);
