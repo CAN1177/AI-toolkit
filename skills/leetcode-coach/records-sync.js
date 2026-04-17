@@ -11,17 +11,14 @@ const DEFAULT_LOCAL_PATH = path.join(CONFIG_DIR, "records");
 const DEFAULT_COMMIT_MESSAGE = "docs: sync leetcode practice progress";
 const TEMPLATE_ROOT = path.join(__dirname, "references");
 
-const REQUIRED_TEMPLATE_FILES = [
-  ["pattern-progress.md", "pattern-progress.md"],
-  ["training-log-template.md", "training-log-template.md"],
-];
-const TRAINING_LOGS_DIR = "training-logs";
-const TRAINING_LOGS_PLACEHOLDER = ".gitkeep";
-const REQUIRED_ENTRIES = [
+const TEMPLATE_FILES = [
   "pattern-progress.md",
   "training-log-template.md",
-  TRAINING_LOGS_DIR,
+  "pattern-profile-template.md",
 ];
+const PLACEHOLDER_DIRS = ["training-logs", "patterns"];
+const PLACEHOLDER_FILE = ".gitkeep";
+const REQUIRED_ENTRIES = [...TEMPLATE_FILES, ...PLACEHOLDER_DIRS];
 
 function fail(message) {
   console.error(`[leetcode-records-sync] ${message}`);
@@ -137,23 +134,25 @@ function isGitRepo(targetPath) {
 function seedRecordsDirectory(recordsDir) {
   fs.mkdirSync(recordsDir, { recursive: true });
 
-  for (const [sourceName, targetName] of REQUIRED_TEMPLATE_FILES) {
-    const sourcePath = path.join(TEMPLATE_ROOT, sourceName);
-    const targetPath = path.join(recordsDir, targetName);
+  for (const name of TEMPLATE_FILES) {
+    const sourcePath = path.join(TEMPLATE_ROOT, name);
+    const targetPath = path.join(recordsDir, name);
     if (pathExists(targetPath)) continue;
     if (!pathExists(sourcePath)) {
       fail(`模板文件不存在: ${sourcePath}`);
     }
     fs.copyFileSync(sourcePath, targetPath);
-    log(`已生成 ${targetName}`);
+    log(`已生成 ${name}`);
   }
 
-  const trainingLogsDir = path.join(recordsDir, TRAINING_LOGS_DIR);
-  fs.mkdirSync(trainingLogsDir, { recursive: true });
-  const placeholder = path.join(trainingLogsDir, TRAINING_LOGS_PLACEHOLDER);
-  if (!pathExists(placeholder)) {
-    fs.writeFileSync(placeholder, "");
-    log(`已生成 ${TRAINING_LOGS_DIR}/${TRAINING_LOGS_PLACEHOLDER}`);
+  for (const dirName of PLACEHOLDER_DIRS) {
+    const dirPath = path.join(recordsDir, dirName);
+    fs.mkdirSync(dirPath, { recursive: true });
+    const placeholder = path.join(dirPath, PLACEHOLDER_FILE);
+    if (!pathExists(placeholder)) {
+      fs.writeFileSync(placeholder, "");
+      log(`已生成 ${dirName}/${PLACEHOLDER_FILE}`);
+    }
   }
 }
 
