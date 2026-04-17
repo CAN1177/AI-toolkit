@@ -2,7 +2,7 @@
 
 这个文件在当前仓库里只是模板 / 示例，用来说明 `pattern-progress.md` 应该长什么样。
 
-真实训练时，应读取和更新外部记录仓库中的 `pattern-progress.md` 副本，而不是把这里当作学习者的实时总台账。外部记录仓库路径由 `LEETCODE_COACH_RECORDS_REPO_PATH` 提供；如果设置了 `LEETCODE_COACH_RECORDS_SUBDIR`，则使用对应子目录下的副本。
+真实训练时，应读取和更新外部私有记录仓库中的 `pattern-progress.md` 副本，而不是把这里当作学习者的实时总台账。外部记录仓库通过 `node records-sync.js init <git-url>` 一键配置，默认位于 `~/.leetcode-coach/records/`。
 
 只有在学习者明确确认“这次进度可以记档”后，才更新外部记录仓库中的 `pattern-progress.md`。保持简洁即可：结果、薄弱点、最近日期、下一步，够用就行。
 

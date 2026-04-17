@@ -2,13 +2,13 @@
 
 这个文件在当前仓库里只保留为模板，不直接充当学习者的真实训练记录。
 
-真正实例化后的训练记录应写入外部记录仓库，并放在：
+真正实例化后的训练记录应写入外部私有记录仓库，并放在：
 
 ```text
-$LEETCODE_COACH_RECORDS_REPO_PATH/${LEETCODE_COACH_RECORDS_SUBDIR:-leetcode-coach}/training-logs/
+<records-repo>/training-logs/
 ```
 
-也就是说，这个仓库保留的是模板，外部记录仓库中的 `leetcode-coach/training-logs/`（或自定义子目录下的 `training-logs/`）才是实际训练日志的归档位置。
+默认情况下该仓库位于 `~/.leetcode-coach/records/`，由 `node records-sync.js init <git-url>` 自动配置。也就是说，公共仓库保留的是模板，外部记录仓库中的 `training-logs/` 才是实际训练日志的归档位置。
 
 在一轮训练收尾时，或者学习者开启新对话、想避免重复做题时，使用这个模板去生成外部记录仓库里的训练日志。
 
