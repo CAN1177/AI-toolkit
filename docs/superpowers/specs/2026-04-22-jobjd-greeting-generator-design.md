@@ -142,17 +142,31 @@ This normalized model makes the generator stable even when some source fields ar
 
 ## Greeting Generation
 
-The message should be built internally using a three-part structure:
+The message should still be built from three internal components, but the default surface form for `first_contact` should be tighter and more direct:
 
-1. identity label
-2. JD match points
-3. polite close with light invitation
+1. brief greeting
+2. years or direction plus strongest match advantage
+3. concise action-oriented close
 
-### Identity label
+### Opening rule
 
-Use `candidate_brief` and `candidate_status` to form a short sentence describing who the candidate is, what direction they work in, and what their current status is.
+Use `candidate_brief` and `candidate_status` to form a short opening that gets to value immediately.
 
-If the candidate profile is thin, shorten this section rather than padding it with generic claims.
+For the default `first_contact` output, the opening should follow this order:
+
+1. polite greeting
+2. years or direction
+3. strongest match advantage
+
+The message should not spend the opening on generic recruiting small talk.
+
+Default prohibitions for `first_contact`:
+
+- do not open with "I noticed your company is hiring..."
+- do not open with a standalone "I am [name]..."
+- do not spend the first sentence on company or position narration unless the user explicitly wants that style
+
+If the candidate profile is thin, shorten the self-description further and keep the strongest credible advantage.
 
 ### JD match points
 
@@ -164,11 +178,23 @@ Priority order:
 2. directly matching skill or stack
 3. domain or scenario familiarity
 
-The message should prefer concrete language over generic self-promotion.
+The message should prefer concrete language over generic self-promotion. For `first_contact`, the strongest matching point should appear in the opening sentence rather than being delayed to a later sentence.
 
-### Polite close
+### Closing rule
 
-End with a respectful, low-pressure invitation to continue the conversation. The message should not sound demanding, apologetic to excess, or manipulative.
+End with a respectful but compressed action-oriented close. The default close should be one short clause, not a layered polite paragraph.
+
+Preferred shape:
+
+- "Attached is my resume. Looking forward to your reply."
+- "Resume attached. Looking forward to hearing from you."
+- Chinese equivalents such as "以下是我的简历，盼回复。"
+
+Default prohibitions:
+
+- do not stack "thank you", "wish you smooth work", and "if convenient" in the same close
+- do not add empty invitation language when a short resume-forward close is enough
+- do not sound demanding, apologetic to excess, or manipulative
 
 ## Scenario Rules
 
@@ -176,9 +202,11 @@ End with a respectful, low-pressure invitation to continue the conversation. The
 
 Focus on:
 
-- who the candidate is
-- why the match is relevant
-- polite interest in further communication
+- direct greeting
+- years or direction plus strongest match
+- concise resume-forward close
+
+The default first-contact message should feel compact and sharp, not like a cover letter opening.
 
 ### `follow_up_read`
 
@@ -217,6 +245,13 @@ Length control must preserve meaning, not just cut by character count blindly.
 Default output:
 
 - one final greeting only
+
+Default style requirements for `first_contact`:
+
+- lead with greeting plus experience or direction plus strongest advantage
+- avoid role-narration openings like "I saw your company is hiring..."
+- avoid standalone self-introduction openings like "I am [name]..."
+- use a concise closing, preferably resume-forward
 
 Optional output when explicitly requested:
 
@@ -257,6 +292,8 @@ The implementation plan should cover at least:
 - total extraction failure leading to `jd_text` request
 - user override of `position_name` and `company_name`
 - scenario differences across all three supported scenarios
+- first-contact output that avoids generic job-post openings
+- first-contact output with concise resume-forward closing
 - length compression preserving the minimum skeleton
 - safety cases that reject fabricated or pressuring phrasing
 
